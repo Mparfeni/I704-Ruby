@@ -1,2 +1,0 @@
-class MainMailer < ApplicationMailer
-end
