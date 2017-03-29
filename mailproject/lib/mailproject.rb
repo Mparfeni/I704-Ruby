@@ -6,25 +6,25 @@ def main
   puts "Welcome to my email resender app"
   if ($username == nil)
     puts "Please, enter your main email"
-    $user = STDIN.noecho(&:gets).chomp
+    $username = STDIN.noecho(&:gets).chomp
   end
   if ($password == nil)
     puts "Please, enter your password"
-    $pass = STDIN.noecho(&:gets).chomp
+    $password = STDIN.noecho(&:gets).chomp
   end
   if ($mailbox == nil)
     puts "Please, enter your additional email "
-    $mail = STDIN.noecho(&:gets).chomp
+    $mailbox = STDIN.noecho(&:gets).chomp
   end
 
   puts "Do you want to save your credentials(yes/no)?"
   @answer = gets.chomp
   if (@answer == "yes")
-    puts "okay"
+    puts "Saving..."
     target = open(".mail.auth.rb", "w")
-    target.write("module Auth\n  $username = '#{$user}'\n  $password = '#{$pass}'\n  $mailbox = '#{$mail}'\nend" )
+    target.write("module Auth\n  $username = '#{$username}'\n  $password = '#{$password}'\n  $mailbox = '#{$mailbox}'\nend" )
   elsif (@answer == "no")
-    puts "not okay"
+    puts "okay"
   end
 
   gmail = Gmail.connect($username, $password)
@@ -38,7 +38,7 @@ def main
     end
     message.deliver!
     puts "Message delivered!"
-#    email.read!
+    email.read!
   end
   gmail.logout
 end
